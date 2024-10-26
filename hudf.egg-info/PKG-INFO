@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: hudf
+Version: 0.0.1
+Summary: Hopsworks User Defined Functions - Common utilities for feature engineering
+Home-page: https://github.com/MagicLex/hudf.git
+Author: Hopsworks
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.19.0
+Requires-Dist: pandas>=1.2.0
+Requires-Dist: scikit-learn>=0.24.0
+
+# HUDF - Hopsworks User Defined Functions
+
+Common utilities and functions for feature engineering in Hopsworks.
+
+## Installation
+```bash
+pip install hudf
+```
+
+## Quick Start
+```python
+from hudf.datetime import to_microseconds
+from hudf.feature import normalize_column
+
+# Convert datetime to microseconds
+df = to_microseconds(df, 'timestamp')
+
+# Normalize a numeric column
+df = normalize_column(df, 'amount')
+```
+
