@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: hudf
-Version: 0.0.1
+Version: 0.0.2
 Summary: Hopsworks User Defined Functions - Common utilities for feature engineering
 Home-page: https://github.com/MagicLex/hudf.git
 Author: Hopsworks
@@ -9,7 +9,6 @@ Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: numpy>=1.19.0
 Requires-Dist: pandas>=1.2.0
-Requires-Dist: scikit-learn>=0.24.0
 
 # HUDF - Hopsworks User Defined Functions
 
@@ -21,14 +20,28 @@ pip install hudf
 ```
 
 ## Quick Start
+# Time
+- *df*: Input DataFrame
+- *columns*: Column(s) to convert
+- *unit*: Input unit ('us' for microseconds, 'ms' for milliseconds, 's' for seconds)
+- *inplace*: Whether to modify DataFrame in place
+- *tz*: Timezone for the output datetime (default UTC)
+
 ```python
-from hudf.datetime import to_microseconds
-from hudf.feature import normalize_column
+import pandas as pd
+from hudf.time import to_epoch, from_epoch
 
-# Convert datetime to microseconds
-df = to_microseconds(df, 'timestamp')
+# Convert to epoch
+df = pd.DataFrame({
+    'timestamp': pd.date_range('2024-01-01', periods=3),
+    'str_date': ['2024-01-01', '2024-01-02', '2024-01-03']
+})
 
-# Normalize a numeric column
-df = normalize_column(df, 'amount')
+# Convert both columns to seconds since epoch
+df = to_epoch(df, ['timestamp', 'str_date'], unit='s')
+
+# Convert back to datetime
+df = from_epoch(df, ['timestamp', 'str_date'], unit='s', tz='Europe/London')
+
 ```
 
